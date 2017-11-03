@@ -27,11 +27,10 @@ logs.each do |line|
   line.scan(ip_match).each do |ip| ip_addresses.push(ip) end
   success += 1 if line.match?(two_hundred)
   redirect += 1 if line.match?(three_hundred)
-  if line.match?(four_hundred)
-    failure += 1
-    fail_uri = line.match(/"(.*?)"/)
-    failure_code = line.match(four_hundred).to_s.chop
-  end
+  next unless line.match?(four_hundred)
+  failure += 1
+  fail_uri = line.match(/"(.*?)"/)
+  failure_code = line.match(four_hundred).to_s.chop
 end
 
 puts "Total IPs: #{ip_addresses.size}\n"
