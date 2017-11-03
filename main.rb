@@ -4,18 +4,19 @@ two_hundred = /\s2\d\d\s\d/
 three_hundred = /\s3\d\d\s\d/
 four_hundred = /\s4\d\d\s\d/
 
+logs = File.readlines ARGV[0]
+
 # First we check for param
-if ARGV[0] == nil?
+if logs == nil?
   puts 'Pass a log file as argument!'
   exit
-# elsif ARGV[0].match?(ip_match) == false
-#   # Next check for at least one ip address because after all, this is a web log
-#   puts 'Log file must be a web log!'
-#   exit
+elsif logs.last.match?(ip_match) == false
+  # Next check for at least one ip address because after all, this is a web log
+  puts 'Log file must be a web log!'
+  exit
 end
 
 # List variables for clarity
-logs = File.readlines ARGV[0]
 success = 0
 redirect = 0
 failure = 0
