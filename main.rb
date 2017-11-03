@@ -1,3 +1,8 @@
+if ARGV[0] == nil
+  puts 'Pass a log file as argument!'
+  exit 
+end
+
 # Regex goodness
 ip_match = /\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/
 two_hundred = /\s2\d\d\s\d/
@@ -5,7 +10,7 @@ three_hundred = /\s3\d\d\s\d/
 four_hundred = /\s4\d\d\s\d/
 
 # List variables for clarity
-logs = File.readlines 'my.log' # TODO: replace the contents of my.log with your web log
+logs = File.readlines ARGV[0]
 success = 0
 redirect = 0
 failure = 0
