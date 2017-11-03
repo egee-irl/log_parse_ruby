@@ -1,13 +1,18 @@
-if ARGV[0] == nil
-  puts 'Pass a log file as argument!'
-  exit 
-end
-
 # Regex goodness
 ip_match = /\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/
 two_hundred = /\s2\d\d\s\d/
 three_hundred = /\s3\d\d\s\d/
 four_hundred = /\s4\d\d\s\d/
+
+# First we check for param
+if ARGV[0] == nil
+  puts 'Pass a log file as argument!'
+  exit 
+elsif ARGV[0].match?(ip_match) == false
+  # Next we check for at least one ip address because after all, this is a web log
+  puts 'Log file must be a web log!'
+  exit 
+end
 
 # List variables for clarity
 logs = File.readlines ARGV[0]
