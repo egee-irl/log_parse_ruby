@@ -7,14 +7,10 @@ four_hundred = /\s4\d\d\s\d/
 logs = File.readlines ARGV[0]
 
 # First we check for param
-if logs == nil?
-  puts 'Pass a log file as argument!'
-  exit
-elsif logs.last.match?(ip_match) == false
-  # Next check for at least one ip address because after all, this is a web log
-  puts 'Log file must be a web log!'
-  exit
-end
+abort('Pass a log file as argument!') if logs.first.nil?
+
+# Next check for at least one ip address because after all, this is a web log
+abort('Log file must be a web log!') unless logs.last.match?(ip_match)
 
 # List variables for clarity
 success = 0
