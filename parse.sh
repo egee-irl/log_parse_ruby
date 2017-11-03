@@ -7,3 +7,5 @@ cat ips >> headers
 sed -i 's/\s/,/g' headers
 cat headers | perl -pe 's/(?<!\d)0+//g' > ips.csv # This regex is a little overzealous but, OK
 rm headers && rm ips
+echo 'Operation Complete. Created: ips.csv'
+
