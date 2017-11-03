@@ -4,7 +4,7 @@ two_hundred = /\s2\d\d\s\d/
 three_hundred = /\s3\d\d\s\d/
 four_hundred = /\s4\d\d\s\d/
 
-logs = File.readlines ARGV[0]
+logs = File.readlines(ARGV[0])
 
 # First we check for param
 abort('Pass a log file as argument!') if logs.first.nil?
