@@ -1,5 +1,6 @@
 # Regex goodness
 ip_match = /[^:]\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+resource_size = /\b(\d*)\b\s"/
 two_hundred = /\s2\d\d\s\d/
 three_hundred = /\s3\d\d\s\d/
 four_hundred = /\s4\d\d\s\d/
@@ -23,7 +24,7 @@ res_sizes = []
 
 # Since our logs variable is an array, let's dive in!
 logs.each do |line|
-  res_sizes.push(line.match(/\b(\d*)\b\s"/)[0].to_i)
+  res_sizes.push(line.match(resource_size)[0].to_i)
   line.scan(ip_match).each do |ip| ip_addresses.push(ip) end
   success += 1 if line.match?(two_hundred)
   redirect += 1 if line.match?(three_hundred)
