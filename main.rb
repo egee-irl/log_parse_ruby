@@ -18,10 +18,11 @@ abort('Log file must be a web log!') unless logs.last.match?(ip_match)
 success = 0
 redirect = 0
 failure = 0
-fail_uri = nil
 failure_code = nil
+failure_uri = []
 ip_addresses = []
 res_sizes = []
+
 
 # Since our logs variable is an array, let's dive in!
 logs.each do |line|
@@ -36,7 +37,7 @@ logs.each do |line|
   redirect += 1 if line.match?(three_hundred)
 
   next unless line.match?(four_hundred)
-  fail_uri = line.match(fail__uri)
+  failure_uri.push(line.match(fail__uri))
   failure_code = line.match(four_hundred).to_s.chop
   failure += 1
 end
@@ -49,4 +50,4 @@ puts "Failure Codes: #{failure}\n"
 puts "Largest resource size in bytes: #{res_sizes.max}\n"
 puts "Smallest resource size in bytes: #{res_sizes.min}\n"
 puts "Average resource size in bytes: #{res_sizes.reduce(:+).to_f / res_sizes.size}\n"
-puts "Failure URI: #{fail_uri} - #{failure_code.strip}" if fail_uri != nil?
+puts "Failure URI: #{failure_uri.first} - #{failure_code.strip}" if failure_uri.empty? == false
