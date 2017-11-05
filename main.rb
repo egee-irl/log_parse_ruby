@@ -1,5 +1,5 @@
 # Regex goodness
-ip_match = /\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/
+ip_match = /[^:]\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
 two_hundred = /\s2\d\d\s\d/
 three_hundred = /\s3\d\d\s\d/
 four_hundred = /\s4\d\d\s\d/
@@ -42,3 +42,5 @@ puts "Largest resource size in bytes: #{res_sizes.max}\n"
 puts "Smallest resource size in bytes: #{res_sizes.min}\n"
 puts "Average resource size in bytes: #{res_sizes.reduce(:+).to_f / res_sizes.size}\n"
 puts "Failure URI: #{fail_uri} - #{failure_code.strip}" if fail_uri != nil?
+
+# puts ip_addresses
