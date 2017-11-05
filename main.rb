@@ -26,22 +26,20 @@ res_sizes = []
 # Since our logs variable is an array, let's dive in!
 logs.each do |line|
   line.scan(ip_match).each do |ip|
+    # Some values look like ips so we'll skip those
     next if ip.match?(imposter_ip)
-    ip_addresses.push(ip) 
-  end
-  res_sizes.push(line.match(resource_size)[0].to_i)
+    ip_addresses.push(ip)
+  end 
 
+  res_sizes.push(line.match(resource_size)[0].to_i)
   success += 1 if line.match?(two_hundred)
   redirect += 1 if line.match?(three_hundred)
+
   next unless line.match?(four_hundred)
   fail_uri = line.match(fail__uri)
   failure_code = line.match(four_hundred).to_s.chop
   failure += 1
 end
-
-# puts ip_addresses
-
-puts ip_addresses
 
 puts "Total IPs: #{ip_addresses.size}\n"
 puts "Unique IPs: #{ip_addresses.uniq.size}\n"
