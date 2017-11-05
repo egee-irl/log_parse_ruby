@@ -1,5 +1,5 @@
 # Regex goodness
-ip_match = /[^:]\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+ip_match = /[^:\/]\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
 resource_size = /\b(\d*)\b\s"/
 two_hundred = /\s2\d\d\s\d/
 three_hundred = /\s3\d\d\s\d/
