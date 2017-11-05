@@ -1,5 +1,5 @@
 # Regex goodness
-ip_match = /[^:\/]\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+ip_match = /[^:\D]\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
 resource_size = /\b(\d*)\b\s"/
 two_hundred = /\s2\d\d\s\d/
 three_hundred = /\s3\d\d\s\d/
@@ -25,7 +25,7 @@ res_sizes = []
 # Since our logs variable is an array, let's dive in!
 logs.each do |line|
   res_sizes.push(line.match(resource_size)[0].to_i)
-  line.scan(ip_match).each do |ip| ip_addresses.push(ip) end
+  line.scan(ip_match).each do |ip| ip_addresses.push(ip.strip) end
   success += 1 if line.match?(two_hundred)
   redirect += 1 if line.match?(three_hundred)
   next unless line.match?(four_hundred)
@@ -33,6 +33,8 @@ logs.each do |line|
   fail_uri = line.match(/"(.*?)"/)
   failure_code = line.match(four_hundred).to_s.chop
 end
+
+puts ip_addresses
 
 puts "Total IPs: #{ip_addresses.size}\n"
 puts "Unique IPs: #{ip_addresses.uniq.size}\n"
@@ -44,4 +46,4 @@ puts "Smallest resource size in bytes: #{res_sizes.min}\n"
 puts "Average resource size in bytes: #{res_sizes.reduce(:+).to_f / res_sizes.size}\n"
 puts "Failure URI: #{fail_uri} - #{failure_code.strip}" if fail_uri != nil?
 
-# puts ip_addresses
+
