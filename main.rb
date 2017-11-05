@@ -4,6 +4,7 @@ resource_size = /\b(\d*)\b\s"/
 two_hundred = /\s2\d\d\s\d/
 three_hundred = /\s3\d\d\s\d/
 four_hundred = /\s4\d\d\s\d/
+fail__uri = /"(.*?)"/
 
 logs = File.readlines(ARGV[0])
 
@@ -29,9 +30,9 @@ logs.each do |line|
   success += 1 if line.match?(two_hundred)
   redirect += 1 if line.match?(three_hundred)
   next unless line.match?(four_hundred)
-  failure += 1
-  fail_uri = line.match(/"(.*?)"/)
+  fail_uri = line.match(fail__uri)
   failure_code = line.match(four_hundred).to_s.chop
+  failure += 1
 end
 
 puts ip_addresses
