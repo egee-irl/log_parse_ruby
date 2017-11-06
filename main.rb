@@ -1,6 +1,6 @@
 # Regex goodness
 ip_match = /[^:\s]\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
-imposter_ip = /\/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+imposter_ip = %r/\/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
 resource_size = /\b(\d*)\b\s"/
 two_hundred = /\s2\d\d\s\d/
 three_hundred = /\s3\d\d\s\d/
@@ -30,7 +30,7 @@ logs.each do |line|
     # Some values look like ips so we'll skip those
     next if ip.match?(imposter_ip)
     ip_addresses.push(ip)
-  end 
+  end
 
   res_sizes.push(line.match(resource_size)[0].to_i)
   success += 1 if line.match?(two_hundred)
