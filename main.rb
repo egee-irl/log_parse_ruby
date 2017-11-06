@@ -51,6 +51,6 @@ puts "Failure Codes: #{failures}\n\n"
 # If there are a ton of failures, this block may become unwieldy
 if failures != 0
   failure_uri.each do |uri|
-    puts "Failure URI: #{uri}"
+    puts "Failure URI: #{uri.delete '"'}"
   end
 end
