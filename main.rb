@@ -5,7 +5,7 @@ resource_size = /\b(\d*)\b\s"/
 two_hundred = /\s2\d\d\s\d/
 three_hundred = /\s3\d\d\s\d/
 four_hundred = /\s4\d\d\s\d/
-fail__uri = /"(.*?)"/
+fail__uri = %r/"(.*?)\s\/(.*?)\s/
 
 # First we check for args
 abort('Pass a log file as argument!') if ARGV.first.nil?
