@@ -5,6 +5,7 @@ resource_size = /\b(\d*)\b\s"/
 two_hundred = /\s2\d\d\s\d/
 three_hundred = /\s3\d\d\s\d/
 four_hundred = /\s4\d\d\s\d/
+five_hundred = /\s5\d\d\s\d/
 fail__uri = /"(.*?)"/
 
 # First we check for args
@@ -34,17 +35,18 @@ logs.each do |line|
   success += 1 if line.match?(two_hundred)
   redirects += 1 if line.match?(three_hundred)
 
-  next unless line.match?(four_hundred)
+  # TODO: plug 500 response codes into failure_uri
+  next unless line.match?(four_hundred) || line.match?(five_hundred)
   failure_uri.push(line.match(fail__uri).to_s +
   " Response Code:#{line.match(four_hundred).to_s.chop}")
   failures += 1
 end
 
 puts "Total IPs: #{ip_addresses.size}\n"
-puts "Unique IPs: #{ip_addresses.uniq.size}\n"
+puts "Unique IPs: #{ip_addresses.uniq.size}\n\n"
 puts "Largest resource size in bytes: #{res_sizes.max}\n"
 puts "Smallest resource size in bytes: #{res_sizes.min}\n"
-puts "Average resource size in bytes: #{res_sizes.reduce(:+).to_f / res_sizes.size}\n"
+puts "Average resource size in bytes: #{res_sizes.reduce(:+).to_f / res_sizes.size}\n\b"
 puts "Success Codes: #{success}\n"
 puts "Redirect Codes: #{redirects}\n"
 puts "Failure Codes: #{failures}\n\n"
